@@ -1,0 +1,86 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.ready-dance'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//암호화 모듈
+	implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.6.1'
+
+	//  implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.BUILD-SNAPSHOT'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+	// jjwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.6.1'
+
+	// 웹 페이지를 쉽게 생성하기 위해 thymeleaf 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.6'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.1'
+
+	implementation('org.springframework.boot:spring-boot-starter-oauth2-client:2.5.6')
+
+	implementation group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
+
+	implementation group: 'net.nurigo', name: 'sdk', version: '4.0.3'
+
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
+
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.1'
+
+	// spring data jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.1'
+
+	// security test
+	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
+
+	// starter test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.1'
+
+	// junit test
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+	// Thymeleaf에서 SpringSecurity를 Integration
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.6'
+}
+
+test {
+	useJUnitPlatform()
+}
+
