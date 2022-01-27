@@ -35,10 +35,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request,
             HttpServletResponse response
     ) throws AuthenticationException {
-        // 로그인할 때 입력한 username과 password를 가지고 authenticationToken를 생성한다.
+        // 로그인할 때 입력한 useId와 usrPass를 가지고 authenticationToken를 생성한다.
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                request.getParameter("username"),
-                request.getParameter("password"),
+                request.getParameter("usrId"),
+                request.getParameter("usrPass"),
                 new ArrayList<>()
         );
         return authenticationManager.authenticate(authenticationToken);

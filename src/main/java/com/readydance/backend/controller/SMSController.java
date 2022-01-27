@@ -1,5 +1,7 @@
 package com.readydance.backend.controller;
 
+import com.readydance.backend.dto.LoginReq;
+import com.readydance.backend.dto.SendMessageRequestDto;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.MessageListRequest;
@@ -11,9 +13,12 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+
 
 @RestController
 public class SMSController {
@@ -25,6 +30,7 @@ public class SMSController {
         this.messageService = NurigoApp.INSTANCE.initialize("NCSJXM6XEO4OKWP9", "7LSYBHRA7CBDKXFVFGOSRESTFGPQZKOJ", "https://api.solapi.com");
     }
 
+
     @GetMapping("/get-message-list")
     public void getMessageList() {
         MessageListResponse response = this.messageService.getMessageList(new MessageListRequest());
@@ -33,11 +39,11 @@ public class SMSController {
     }
 
     @PostMapping("/send-one")
-    public void sendOne() {
+    public void sendOne(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto) {
         Message message = new Message();
-        message.setFrom("01092595158");
-        message.setTo("01092595158");
-        message.setText("한글 45자, 영자 90자 이하 입력되면 자동으로 SMS타입의 메시지가 추가됩니다.");
+        message.setFrom(sendMessageRequestDto.getUsrTel());
+        message.setTo(sendMessageRequestDto.getUsrTel());
+        message.setText(Integer.toString(sendMessageRequestDto.getValidNo()));
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 
         System.out.println(response);

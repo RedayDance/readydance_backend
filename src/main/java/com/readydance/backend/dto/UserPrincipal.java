@@ -16,21 +16,18 @@ import java.util.Map;
  * UserDetails : Spring Security 에서 상태 조회 및 인증과 인가를 할 때 사용
  */
 
-public class UserPrincipal implements OAuth2User, UserDetails {
+public class UserPrincipal implements  UserDetails {
 
     private static final long serialVersionUID = 1L;
 
     private int no;
-    private String principal;   //이메일
-    private String password;
-    private String username;
+    private String principal;   //유저 아이디
+    private String password;    //유저 패스워드
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-
-    public UserPrincipal(int no,String username, String password, Collection<? extends GrantedAuthority>  authorities, String principal ) {
+    public UserPrincipal(int no, String password, Collection<? extends GrantedAuthority>  authorities, String principal ) {
         this.no = no;
-        this.username = username;
         this.password = password;
         this.authorities = authorities;
         this.principal = principal;
@@ -41,11 +38,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UserPrincipal(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
+                user.getMemId(),
+                user.getUsrPass(),
                 authorities,
-                user.getEmail()
+                user.getUsrId()
         );
     }
 
@@ -85,18 +81,9 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return true;
     }
 
-    @Override
-    public <A> A getAttribute(String name) {
-        return OAuth2User.super.getAttribute(name);
-    }
 
     public void setAttributes(Map<String, Object> attributes) {
         this.attributes = attributes;
-    }
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
     }
 
     @Override
@@ -104,10 +91,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return authorities;
     }
 
-    @Override
-    public String getName() {
-        return username;
-    }
 
     public String getPrincipal() {
         return principal;

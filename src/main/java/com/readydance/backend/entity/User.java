@@ -1,6 +1,5 @@
 package com.readydance.backend.entity;
 
-import com.readydance.backend.oauth2.AuthProvider;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,37 +20,54 @@ import java.util.stream.Collectors;
 @Table(name = "user")
 public class User extends BaseEntity{
 
-    @Column(name = "user_name", length = 45, nullable = false)
-    private String username; //사용자 이름
-    @Column(name = "user_pw", length = 70, nullable = false)
-    private String password;  // hashed 비밀번호
-    @Column(name = "user_email", length = 45, nullable = false, unique = true)
-    private String email;
-    @Column(name = "user_tel", length = 11, nullable = false, unique = true)
-    private String tel;
+    @Column(name = "USR_ID", length = 100, nullable = false, unique = true)
+    private String usrId;    //유저 아이디
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_sns_type", length = 45, nullable = false)
-    private AuthProvider snsType; // 사용자 SNS 연동 타입 [local, naver, google, kakao]
+    @Column(name = "USR_NAME", length = 30, nullable = false)
+    private String usrName;  //유저 이름
 
-    @Column(name = "user_sns_key", length = 45, unique = true)
-    private String snsKey; // 사용자 SNS 고유 key
+    @Column(name = "USR_PASS", length = 200, nullable = false)
+    private String usrPass;  //유저 비밀번호
+
+    @Column(name = "USR_EMAIL", length = 50, nullable = false, unique = true)
+    private String usrEmail; //유저 이메일
+
+    @Column(name = "USR_TEL", length = 11, nullable = false, unique = true)
+    private String usrTel;   //유저 핸드폰 번호
+
+    @Column(name = "USR_TYPE", length = 1, nullable = false)
+    private String usrType;  //회원 유형
+
+    @Column(name = "USR_IMG", length = 100)
+    private String usrImg;   //유저 프로필 이미지
+
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "user_sns_type", length = 45, nullable = false)
+//    private AuthProvider snsType; // 사용자 SNS 연동 타입 [local, naver, google, kakao]
+//
+//    @Column(name = "user_sns_key", length = 45, unique = true)
+//    private String snsKey; // 사용자 SNS 고유 key
 
     @Builder
-    public User(String username, String password, String email, String tel, AuthProvider snsType, String snsKey) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.tel = tel;
-        this.snsType = snsType;
-        this.snsKey = snsKey;
+    public User(String usrId, String usrName, String usrPass, String usrEmail, String usrTel, String usrType, String usrImg) {
+        this.usrId = usrId;
+        this.usrName = usrName;
+        this.usrPass = usrPass;
+        this.usrEmail = usrEmail;
+        this.usrTel = usrTel;
+        this.usrType = usrType;
+        this.usrImg = usrImg;
     }
 
     public static User of(User user) {
         return User.builder()
-                .email(user.getEmail())
-                .tel(user.getTel())
-                .username(user.getUsername())
+                .usrId(user.getUsrId())
+                .usrName(user.getUsrName())
+                .usrPass(user.getUsrPass())
+                .usrEmail(user.getUsrEmail())
+                .usrTel(user.getUsrTel())
+                .usrType(user.getUsrType())
+                .usrImg(user.getUsrImg())
                 .build();
     }
 

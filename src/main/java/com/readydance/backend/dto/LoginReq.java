@@ -10,9 +10,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class LoginReq {
-    @Email(message = "이메일 양식을 지켜주세요.")
-    @NotBlank(message = "이메일을 입력해주세요.")
-    private String email;
-    @NotBlank(message = "패스워드를 입력해주세요.")
-    private String password;
+
+    @NotBlank(message = "아이디를 입력해주세요.")
+    private String usrId;
+
+    @NotBlank(message = "비밀번호를 입력해주세요.")
+    private String usrPass;
+
+    @NotBlank(message = "로그인 유형을 입력해주세요.")
+    private String loginType;
 }

@@ -8,7 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.transaction.Transactional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -21,9 +22,9 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String usrId) throws UsernameNotFoundException {
         // User정보를 DB에서 가져온다
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findByUsrId(usrId)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 이메일로 유저를 찾을 수 없습니다."));
         return UserPrincipal.create(user);
     }
