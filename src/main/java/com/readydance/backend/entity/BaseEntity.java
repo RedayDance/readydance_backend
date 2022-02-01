@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  * 공통적으로 포함되는 entity 요소를 분리
  */
 @Getter
-@Setter
 @MappedSuperclass //이 class를 상속을 하였으면 매핑을 해줘 아래 생성한 것들을 사용할 수 있다.
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)

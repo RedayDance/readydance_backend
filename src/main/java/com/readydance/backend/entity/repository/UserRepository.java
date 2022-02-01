@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // 휴대폰번호로 회원 찾기
     public Optional<User> findByUsrTel(String usrTel);
+
+
 }
