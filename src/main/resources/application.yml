@@ -1,8 +1,16 @@
 spring:
   profiles:
-    default: dev
-  thymeleaf:
-    cache: false
+    active: local
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
+#spring:
+#  profiles:
+#    default: dev
+#  thymeleaf:
+#    cache: false
 #    prefix: file:calendar-api/src/main/resources/templates/
   web:
     resources:
@@ -11,8 +19,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    username: 'hyungjookim12@gmail.com'
+    password: 'zdmhriwdshbywafe'
     properties:
       mail:
         smtp:
