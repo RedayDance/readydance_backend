@@ -1,11 +1,11 @@
 package com.readydance.backend.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,13 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name = "user")
-public class User extends BaseEntity{
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+public class User {
+
+    @Id
+    //@Column(name = "USER_ID", length = 5, nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "USR_ID", length = 100, nullable = false, unique = true)
     private String usrId;    //유저 아이디
@@ -40,6 +46,12 @@ public class User extends BaseEntity{
 
     @Column(name = "USR_IMG", length = 100)
     private String usrImg;   //유저 프로필 이미지
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false) //중간 테이블을 만들지 않기 위함
+    @ToString.Exclude  //stack overflow 제거
+    private List<QandA> qandAList = new ArrayList<>(); //Q&A 정보
+
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name = "user_sns_type", length = 45, nullable = false)

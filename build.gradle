@@ -84,6 +84,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-batch:2.6.2'
 
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.13.1'
+
+
 }
 
 test {

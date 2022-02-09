@@ -49,7 +49,7 @@ public class JwtUtils {
     /**
      * user로 토큰 생성
      * HEADER(JWT 를 검증하는데 필요한 정보를 가진 객체) : alg(signature 에 사용한 암호화 알고리즘), kid
-     * PAYLOAD(실질적으로 인증에 필요한 데이터를 저장) : sub(유저 네임), iat(토큰 발행 시간), exp(토큰 만료 시간)
+     * PAYLOAD(실질적으로 인증에 필요한 데이터를 저장) : sub(유저 아이디), iat(토큰 발행 시간), exp(토큰 만료 시간)
      * 인증할 떄 payload 에 있는 username 을 가져와서 조회할 때 사용한다.
      * SIGNATURE(jwt token 이 올바른지에 대한 일종의 서명) : JwtKey.getRandomKey 로 구한 Secret Key 로 HS512 해시(암호화)
      * signature 는 header 와 payload 를 합친 뒤 비밀키로 hash 를 생성하여 암호화 한다.
@@ -57,7 +57,7 @@ public class JwtUtils {
      * @return jwt token
      */
     public static String createToken(UserPrincipal user) {
-        Claims claims = Jwts.claims().setSubject(user.getUsername()); // subject
+        Claims claims = Jwts.claims().setSubject(Long.toString(user.getNo())); // subject
         Date now = new Date(); // 현재 시간
         Pair<String, Key> key = JwtKey.getRandomKey();
         // JWT Token 생성

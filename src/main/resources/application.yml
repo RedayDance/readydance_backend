@@ -1,9 +1,9 @@
 spring:
   profiles:
     active: local
-  batch:
-    job:
-      names: ${job.name:NONE}
+#  batch:
+#    job:
+#      names: ${job.name:NONE}
     jdbc:
       initialize-schema: ALWAYS
 #spring:

@@ -26,8 +26,8 @@ public class UserService {
      * 유저 등록
      * @return 유저 권한을 가지고 있는 유저
      */
-    @Transactional //Todo Exception 추가
-    public User saveUser(User user) {
+    @Transactional
+    public User saveUser(User user) throws DuplicateDataException {
             user.setUsrPass(passwordEncoder.encode(user.getUsrPass())); // 패스워드 인코딩을 써서 암호화한다.
             return userRepository.save(user);
         }
@@ -76,7 +76,6 @@ public class UserService {
         // smsService.sendMessage(phone_no, message);
         return valiNum;
     }
-
 }
 
 
