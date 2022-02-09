@@ -150,9 +150,9 @@ public class UserController {
     public ResponseEntity<Integer> validPhoneForSignUp(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto)
             throws SMSException, DuplicateDataException {
 
-        userService.checkDuplicateTel(sendMessageRequestDto.getUsrTel());
-        int validNum = userService.validatePhone(sendMessageRequestDto.getUsrTel());
-        sendMessageRequestDto.setValidNo(validNum);
+        userService.checkDuplicateTel(sendMessageRequestDto.getSendingNumber());
+        int validNum = userService.validatePhone(sendMessageRequestDto.getSendingNumber());
+        sendMessageRequestDto.setContent(Integer.toString(validNum));
 
         //문자보내기
         URI uri = UriComponentsBuilder
@@ -165,7 +165,10 @@ public class UserController {
         System.out.println(uri);
 
         //http body -> object -> object mapper -> json -> rest template -> http body json
-        SendMessageRequestDto req = new SendMessageRequestDto(sendMessageRequestDto.getUsrTel(), validNum);
+        SendMessageRequestDto req = new SendMessageRequestDto(
+                sendMessageRequestDto.getSendingNumber(),
+                sendMessageRequestDto.getReceiptNumber(),
+                Integer.toString(validNum));
 
         RequestEntity<SendMessageRequestDto> requestEntity = RequestEntity
                 .post(uri)
@@ -227,13 +230,13 @@ public class UserController {
      */
     @ApiOperation(value = "1.5 이메일 전송", notes = "미에일을 전송한다..")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "전송된 인증번호 반환"),
+            @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 412, message = "필수항목 누락"),
-            @ApiResponse(code = 500, message = "메세지 전송 실패")
+            @ApiResponse(code = 500, message = "이메일 전송 실패")
     })
     @PostMapping(value = "/SendEmail")
     public ResponseEntity<Void> sendEmail (@RequestBody @Valid SendEmailRequestDto sendEmailRequestDto)
-            throws SMSException, DuplicateDataException {
+           {
 
         //@FunctionalInterface -> interface에 메소드가 하나 -> 람다식으로 구현 가능
         final MimeMessagePreparator preparator = message -> {

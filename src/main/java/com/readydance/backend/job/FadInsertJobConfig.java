@@ -1,10 +1,9 @@
 package com.readydance.backend.job;
 
-import com.readydance.backend.entity.MainPageRec;
-import com.readydance.backend.entity.repository.MainRepository;
+import com.readydance.backend.entity.Fad;
+import com.readydance.backend.entity.repository.FadRepository;
 import com.readydance.backend.validator.FilePathParameterValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.item.ItemWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -13,6 +12,7 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.batch.item.xml.builder.StaxEventItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
@@ -25,68 +25,68 @@ import java.util.ArrayList;
 @Configuration
 @RequiredArgsConstructor //필요한 Bean 와이어링
 @Slf4j
-public class MainInsertJobConfig {
+public class FadInsertJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final MainRepository mainRepository;
+    private final FadRepository fadRepository;
 
     @Bean
-    public Job mainInsertJob(Step mainInsertStep) {
-        return jobBuilderFactory.get("mainInsertJob")
+    public Job fadInsertJob(Step fadInsertStep) {
+        return jobBuilderFactory.get("fadInsertJob")
                 .incrementer(new RunIdIncrementer())
                 .validator(new FilePathParameterValidator())
-                .start(mainInsertStep)
+                .start(fadInsertStep)
                 .build();
     }
 
     @JobScope
     @Bean
-    public Step mainInsertStep(
-            StaxEventItemReader<MainPageRec> mainResourceReader,
-            ItemWriter<MainPageRec> mainPageRecDataDtoItemWriter
+    public Step fadInsertStep(
+            StaxEventItemReader<Fad> fadEntityStaxEventItemReader,
+            ItemWriter<Fad> fadEntityItemWriter
     ){
-        return stepBuilderFactory.get("mainInsertStep")
-                .<MainPageRec, MainPageRec>chunk(10)
-                .reader(mainResourceReader)
-                .writer(mainPageRecDataDtoItemWriter)
+        return stepBuilderFactory.get("fadInsertStep")
+                .<Fad, Fad>chunk(10)
+                .reader(fadEntityStaxEventItemReader)
+                .writer(fadEntityItemWriter)
                 .build();
     }
 
     @StepScope
     @Bean
-    public StaxEventItemReader<MainPageRec> mainResourceReader(
-         //   @Value("#{jobParameters['filePath']}") String filePath,
-            Jaxb2Marshaller mainDtoMarshaller
+    public StaxEventItemReader<Fad> fadEntityStaxEventItemReader(
+//            @Value("#{jobParameters['filePath']}") String filePath,
+            Jaxb2Marshaller fadDtoMarshaller
     ){
-        return new StaxEventItemReaderBuilder<MainPageRec>()
-                .name("mainResourceReader")
-                .resource(new ClassPathResource("rec-api-response.xml")) //읽을 xml 파일 설정
+        return new StaxEventItemReaderBuilder<Fad>()
+                .name("fadEntityStaxEventItemReader")
+                .resource(new ClassPathResource("fad-api-response.xml")) //읽을 xml 파일 설정
                 .addFragmentRootElements("item") //내가 읽어낼 root element 설정
-                .unmarshaller(mainDtoMarshaller) //파일을 객체에 매핑할때 쓴다.
+                .unmarshaller(fadDtoMarshaller) //파일을 객체에 매핑할때 쓴다.
                 .build();
     }
 
     @Bean
     @StepScope
-    public Jaxb2Marshaller mainDtoMarshaller(){
+    public Jaxb2Marshaller fadDtoMarshaller(){
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        jaxb2Marshaller.setClassesToBeBound(MainPageRec.class);
+        jaxb2Marshaller.setClassesToBeBound(Fad.class);
         return jaxb2Marshaller;
     }
 
     @StepScope
     @Bean
-    public ItemWriter<MainPageRec> mainPageRecDataDtoItemWriter(){
+    public ItemWriter<Fad> fadEntityItemWriter(){
         return items -> {
             items.forEach(System.out::println);
 
-            ArrayList<MainPageRec> mainList = new ArrayList<MainPageRec>(items);
+            ArrayList<Fad> fadList = new ArrayList<Fad>(items);
 
-                mainRepository.deleteAllInBatch();
+                fadRepository.deleteAllInBatch();
 
-            for (MainPageRec mainPageRecData : mainList) {
-                mainRepository.save(mainPageRecData);
+            for (Fad fadData : fadList) {
+                fadRepository.save(fadData);
             }
         };
     }

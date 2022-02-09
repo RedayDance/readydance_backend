@@ -1,6 +1,5 @@
 package com.readydance.backend.controller;
 
-import com.readydance.backend.dto.LoginReq;
 import com.readydance.backend.dto.SendMessageRequestDto;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
@@ -41,13 +40,14 @@ public class SMSController {
     @PostMapping("/send-one")
     public void sendOne(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto) {
         Message message = new Message();
-        message.setFrom(sendMessageRequestDto.getUsrTel());
-        message.setTo(sendMessageRequestDto.getUsrTel());
-        message.setText(Integer.toString(sendMessageRequestDto.getValidNo()));
+        message.setFrom(sendMessageRequestDto.getSendingNumber());
+        message.setTo(sendMessageRequestDto.getReceiptNumber());
+        message.setText(sendMessageRequestDto.getContent());
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 
         System.out.println(response);
     }
+
 
     @GetMapping("/send-many")
     public void sendMany() {

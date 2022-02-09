@@ -1,9 +1,6 @@
 package com.readydance.backend.entity;
 
-import com.readydance.backend.entity.BaseEntity;
-import lombok.Data;
 import lombok.Getter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,19 +9,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 메인페이지 추천 학원 정보를 담는 Class
+ * 메인페이지 추천 학원 정보를 담는 Entity
  */
 @XmlRootElement(name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Table(name = "main")
 @Entity
-public class MainPageRecData  {
+public class MainPageRec {
 
     @Id
-    @Column(name = "POST_NO", length = 5, nullable = false, unique = true)
+    //@Column(name = "POST_NO", length = 5, nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int postNo;
+    private int id;
 
     @XmlElement(name="POST_NAME")
     private String postName;

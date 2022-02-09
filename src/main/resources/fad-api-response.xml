@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+    <body>
+        <items>
+            <item>
+                <FAD_TYPE>AC</FAD_TYPE>
+                <FAD_IMG>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</FAD_IMG>
+                <FAD_TEL>01092595158</FAD_TEL>
+                <FAD_NAME>분당댄스학원</FAD_NAME>
+                <FAD_X>25</FAD_X>
+                <FAD_Y>35</FAD_Y>
+                <FAD_RATE>4.3</FAD_RATE>
+                <FAD_JANRE>K-pop</FAD_JANRE>
+                <FAD_DLO>경기도 성남시 분당구 미금로 234</FAD_DLO>
+                <FAD_BNAME> </FAD_BNAME>
+                <FAD_CAREER> </FAD_CAREER>
+                <FAD_FEE> </FAD_FEE>
+                <FAD_PR> </FAD_PR>
+                <FAD_AREA> </FAD_AREA>
+                <FAD_BDANCER>아이키,노제,모니카</FAD_BDANCER>
+                <FAD_URL>www.naver.com</FAD_URL>
+                <FAD_INT></FAD_INT>
+                <FAD_INFO></FAD_INFO>
+                <FAD_PRICE></FAD_PRICE>
+                <FAD_CAU></FAD_CAU>
+            </item>
+            <item>
+                <FAD_TYPE>PR</FAD_TYPE>
+                <FAD_IMG>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</FAD_IMG>
+                <FAD_TEL>01092595158</FAD_TEL>
+                <FAD_NAME>분당댄스연습실</FAD_NAME>
+                <FAD_X>25.5</FAD_X>
+                <FAD_Y>35.5</FAD_Y>
+                <FAD_RATE>4.3</FAD_RATE>
+                <FAD_JANRE>K-pop</FAD_JANRE>
+                <FAD_DLO>경기도 성남시 분당구 미금로 234</FAD_DLO>
+                <FAD_BNAME> </FAD_BNAME>
+                <FAD_CAREER> </FAD_CAREER>
+                <FAD_FEE>1달 기준 30만원</FAD_FEE>
+                <FAD_PR> </FAD_PR>
+                <FAD_AREA>150평</FAD_AREA>
+                <FAD_BDANCER> </FAD_BDANCER>
+                <FAD_URL>www.daum.net</FAD_URL>
+                <FAD_INT>안녕하세요 분당 댄스연습실 입니다.</FAD_INT>
+                <FAD_INFO></FAD_INFO>
+                <FAD_PRICE></FAD_PRICE>
+                <FAD_CAU></FAD_CAU>
+            </item>
+            <item>
+                <FAD_TYPE>DA</FAD_TYPE>
+                <FAD_IMG>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</FAD_IMG>
+                <FAD_TEL>01092595158</FAD_TEL>
+                <FAD_NAME>아이키</FAD_NAME>
+                <FAD_X>25</FAD_X>
+                <FAD_Y>35</FAD_Y>
+                <FAD_RATE>4.3</FAD_RATE>
+                <FAD_JANRE>K-pop</FAD_JANRE>
+                <FAD_DLO>경기도 성남시 분당구 미금로 234</FAD_DLO>
+                <FAD_BNAME>분당댄스학원</FAD_BNAME>
+                <FAD_CAREER>7년</FAD_CAREER>
+                <FAD_FEE>10회 기준 25,000원</FAD_FEE>
+                <FAD_PR>1대1 개인 맞춤 눈높이 지도, 스우파 출연</FAD_PR>
+                <FAD_AREA> </FAD_AREA>
+                <FAD_BDANCER> </FAD_BDANCER>
+                <FAD_URL>www.google.co.kr</FAD_URL>
+                <FAD_INT>안녕하세요 아이키 입니다.</FAD_INT>
+                <FAD_INFO>아이키 소개 및 경력</FAD_INFO>
+                <FAD_PRICE>아이키 가격</FAD_PRICE>
+                <FAD_CAU>아이키 주의 사항</FAD_CAU>
+            </item>
+        </items>
+    </body>
+</response>

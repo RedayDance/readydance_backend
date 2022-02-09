@@ -1,6 +1,7 @@
 package com.readydance.backend.dto;
 
 import com.readydance.backend.entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.Map;
  * UserDetails : Spring Security 에서 상태 조회 및 인증과 인가를 할 때 사용
  */
 
+@Getter
 public class UserPrincipal implements  UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +40,7 @@ public class UserPrincipal implements  UserDetails {
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UserPrincipal(
-                user.getMemId(),
+                user.getId(),
                 user.getUsrPass(),
                 authorities,
                 user.getUsrId()
