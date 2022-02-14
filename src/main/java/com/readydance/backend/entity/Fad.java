@@ -27,7 +27,7 @@ import java.util.List;
 public class Fad {
 
     @Id
-    //@Column(name = "FAD_ID", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -77,5 +77,20 @@ public class Fad {
 
     @XmlElement(name="FAD_BDANCER")
     private String fadBDancer;
+
+    @XmlElement(name="FAD_URL")
+    private String fadUrl;
+
+    @XmlElement(name="FAD_INT")
+    private String fadInt;
+
+    @XmlElement(name="FAD_INFO")
+    private String fadInfo;
+
+    @XmlElement(name="FAD_PRICE")
+    private String fadPrice;
+
+    @XmlElement(name="FAD_CAU")
+    private String fadCau;
 
 }

@@ -52,6 +52,6 @@ class FadRepositoryTest {
     }
 
     private Fad givenFad() {
-        return fadRepository.findByFadName("분당댄스학원").orElseThrow(() -> new SessionUnstableException("해당 시설이 존재하지 않습니다."));
+        return fadRepository.findByFadName("분당댄스학원").get(0);
     }
 }

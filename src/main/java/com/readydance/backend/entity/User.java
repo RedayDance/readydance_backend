@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class User {
 
     @Id
-    //@Column(name = "USER_ID", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

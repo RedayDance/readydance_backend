@@ -19,11 +19,6 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-    @Id
-    @Column(name = "MEM_ID", length = 5, nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int memId;
-
     @CreatedDate         //AuditingListener에서 현재 시간을 주입하여줌
     @Column(name = "REG_DT", length = 11, nullable = false)
     private LocalDateTime regDt;
@@ -31,7 +26,4 @@ public abstract class BaseEntity {
 //    @LastModifiedDate    //commit 직전에 현재 시간을 붙여줌
 //    private LocalDateTime updatedAt;
 
-    public BaseEntity(int memId) {
-        this.memId = memId;
-    }
 }

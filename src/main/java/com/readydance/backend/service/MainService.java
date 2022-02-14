@@ -1,5 +1,6 @@
 package com.readydance.backend.service;
 
+import com.readydance.backend.dto.SubwayAndFad;
 import com.readydance.backend.entity.*;
 import com.readydance.backend.entity.repository.*;
 import com.readydance.backend.exception.SessionUnstableException;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +60,28 @@ public class MainService {
         Fad fad = fadRepository.findById(fadNo).orElseThrow(() -> new SessionUnstableException("해당 시설이 존재하지 않습니다."));
         return fad.getQandAList();
     }
+
+    /**
+     *
+     * @return 전체 질문 내용 반환
+     */
+    @Transactional
+    public SubwayAndFad getSearchData(String searchValue) {
+
+        List<Subway> subways = subwayRepository.findByStationNameContaining(searchValue);
+        List<Fad> fads = fadRepository.findByFadNameContaining(searchValue);
+
+        SubwayAndFad subwayAndFad = new SubwayAndFad();
+
+        subwayAndFad.setFads(fads);
+        subwayAndFad.setSubways(subways);
+
+
+        return subwayAndFad;
+    }
+
+
+
 
     /**
      * 학원별 답변 내용 등록
@@ -120,4 +144,6 @@ public class MainService {
     public List<QandA> getQandAD33ata(int memId, String content) {
         return qaRepository.findAll();
     }
+
+
 }

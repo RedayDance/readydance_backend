@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -27,9 +29,11 @@ public class UserService {
      * @return 유저 권한을 가지고 있는 유저
      */
     @Transactional
-    public User saveUser(User user) throws DuplicateDataException {
+    public List<User> saveUser(User user) throws DuplicateDataException {
             user.setUsrPass(passwordEncoder.encode(user.getUsrPass())); // 패스워드 인코딩을 써서 암호화한다.
-            return userRepository.save(user);
+            List<User> users = new ArrayList<>();
+            users.add(userRepository.save(user));
+            return users;
         }
 
     /**

@@ -3,6 +3,8 @@ package com.readydance.backend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.readydance.backend.dto.ResultDto;
+import com.readydance.backend.dto.ResultListDto;
 import com.readydance.backend.entity.Fad;
 import com.readydance.backend.entity.QandA;
 import com.readydance.backend.entity.User;
@@ -32,13 +34,25 @@ public class DevController {
     private final UserRepository userRepository;
     private final QARepository qaRepository;
     private final DevService devService;
-
+    ResultDto resultDto = new ResultDto();
+    ResultListDto resultListDto = new ResultListDto();
     /**
      * 모든 시설 데이터 반환
      */
     @GetMapping(value = "/GetFad")
     public ResponseEntity<List<Fad>> getMainData() {
         return ResponseEntity.status(HttpStatus.OK).body(devService.getMainPageAllData());
+    }
+
+    /**
+     * 데이터 반환 연습
+     */
+    @GetMapping(value = "/GetPracticeData")
+    public ResultDto getPracticeData() {
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setData(devService.getMainPageAllData());
+        resultDto.setMessage(HttpStatus.OK.toString());
+        return resultDto;
     }
 
     /**

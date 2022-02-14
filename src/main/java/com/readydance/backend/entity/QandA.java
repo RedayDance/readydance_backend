@@ -32,7 +32,7 @@ public class QandA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "QNA_NO", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     private int id;      //질의응답 고유 번호
 
     @Column(name = "QNA_Q", length = 1000, nullable = false)

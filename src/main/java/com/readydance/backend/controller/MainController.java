@@ -3,6 +3,7 @@ package com.readydance.backend.controller;
 import com.readydance.backend.dto.RegisterAnswerDto;
 import com.readydance.backend.dto.RegisterQuestionDto;
 import com.readydance.backend.dto.SendMessageRequestDto;
+import com.readydance.backend.dto.SubwayAndFad;
 import com.readydance.backend.entity.MainPageRec;
 import com.readydance.backend.entity.QandA;
 import com.readydance.backend.entity.Subway;
@@ -125,6 +126,20 @@ public class MainController {
     public ResponseEntity<List<Subway>> getSubwayData() {
 
         return ResponseEntity.status(HttpStatus.OK).body(mainService.getSubwayData());
+    }
+
+    /**
+     * 2.2 키워드 검색
+     */
+    @ApiOperation(value = "2.2 키워드 검색", notes = "지역, 지하철역, 시설, 댄서 키워드를 통해 검색한 결과값을 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 412, message = "필수항목 누락"),
+            @ApiResponse(code = 500, message = "실패")
+    })
+    @GetMapping(value = "/SearchKeywords")
+    public ResponseEntity<SubwayAndFad> searchKeywords(@RequestParam String searchValue) {
+        return ResponseEntity.status(HttpStatus.OK).body(mainService.getSearchData(searchValue));
     }
 
     /**
