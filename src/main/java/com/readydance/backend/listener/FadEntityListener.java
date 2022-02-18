@@ -4,6 +4,7 @@ package com.readydance.backend.listener;
 import com.readydance.backend.entity.Fad;
 import com.readydance.backend.entity.QandA;
 import com.readydance.backend.entity.repository.FadRepository;
+import com.readydance.backend.entity.repository.UserRepository;
 import com.readydance.backend.util.BeanUtils;
 
 import javax.persistence.PostPersist;
@@ -23,10 +24,12 @@ public class FadEntityListener {
         QandA qandA = (QandA) o;
 
         Fad fad = qandA.getFad();
-        List<QandA> qandAList = new ArrayList<>();
+        List<QandA> qandAList = fad.getQandAList();
         qandAList.add(qandA);
         fad.setQandAList(qandAList);
-
         fadRepository.save(fad);
+
+
+
     }
 }

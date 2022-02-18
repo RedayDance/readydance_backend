@@ -1,6 +1,7 @@
 package com.readydance.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -16,13 +17,13 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class User {
 
     @Id
-    //@Column(name = "USER_ID", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -47,8 +48,9 @@ public class User {
     @Column(name = "USR_IMG", length = 100)
     private String usrImg;   //유저 프로필 이미지
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false) //중간 테이블을 만들지 않기 위함
+    @JoinColumn(name = "user_id") //중간 테이블을 만들지 않기 위함
     @ToString.Exclude  //stack overflow 제거
     private List<QandA> qandAList = new ArrayList<>(); //Q&A 정보
 

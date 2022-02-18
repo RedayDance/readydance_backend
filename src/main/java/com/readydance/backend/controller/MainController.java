@@ -1,8 +1,6 @@
 package com.readydance.backend.controller;
 
-import com.readydance.backend.dto.RegisterAnswerDto;
-import com.readydance.backend.dto.RegisterQuestionDto;
-import com.readydance.backend.dto.SendMessageRequestDto;
+import com.readydance.backend.dto.*;
 import com.readydance.backend.entity.MainPageRec;
 import com.readydance.backend.entity.QandA;
 import com.readydance.backend.entity.Subway;
@@ -35,21 +33,25 @@ public class MainController {
     @Autowired
     private final MainService mainService;
 
+    ResultListDto resultListDto = new ResultListDto();
+
     //Todo Exception 추가
 
     /**
      * 모든 데이터 반환
      */
-    @ApiOperation(value = "2데이터 반환", notes = "모든 데이터를 반환한다.")
+    @ApiOperation(value = "데이터 반환", notes = "모든 데이터를 반환한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 412, message = "필수항목 누락"),
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetMainInfo")
-    public ResponseEntity<List<MainPageRec>> getMainData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getMainPageAllData());
+    public ResultListDto getMainData() {
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getMainPageAllData());
+        return resultListDto;
     }
 
     /**
@@ -62,9 +64,11 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetMainInfo/Academy")
-    public ResponseEntity<List<MainPageRec>> getMainAcademyData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getMainPageData("A"));
+    public ResultListDto getMainAcademyData() {
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getMainPageData("A"));
+        return resultListDto;
     }
 
     /**
@@ -128,6 +132,35 @@ public class MainController {
     }
 
     /**
+     * 2.2.1 키워드 검색(메인)
+     */
+    @ApiOperation(value = "2.2 키워드 검색", notes = "지역, 지하철역, 시설, 댄서 키워드를 통해 검색한 결과값을 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 412, message = "필수항목 누락"),
+            @ApiResponse(code = 500, message = "실패")
+    })
+    @GetMapping(value = "/SearchKeywords")
+    public ResponseEntity<List<SubwayAndFad>> searchKeywords(@RequestParam String searchValue) {
+        //SubwayAndFad a = mainService.getSearchData(searchValue);
+
+        return ResponseEntity.status(HttpStatus.OK).body(mainService.getSearchData(searchValue));
+    }
+    /**
+     * 2.3 상세페이지 검색
+     */
+    @ApiOperation(value = "2.3 상세페이지 검색", notes = "지역, 지하철역, 시설, 댄서 키워드를 통해 검색한 결과값을 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 412, message = "필수항목 누락"),
+            @ApiResponse(code = 500, message = "실패")
+    })
+    @GetMapping(value = "/SearchDetailed")
+    public ResponseEntity<DetailData> searchDetail(@RequestParam String searchValue) {
+        return ResponseEntity.status(HttpStatus.OK).body(mainService.getDetailData(searchValue));
+    }
+
+    /**
      * 2.4 문의하기
      */
     @ApiOperation(value = "2.4 문의하기", notes = "문의한다.")
@@ -176,7 +209,6 @@ public class MainController {
     })
     @GetMapping(value = "/GetQandA")
     public ResponseEntity<List<QandA>> getQandAData(@RequestParam int fadId) {
-
         return ResponseEntity.status(HttpStatus.OK).body(mainService.getQandAData(fadId));
     }
 
@@ -190,7 +222,7 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @PostMapping(value = "/RegisterQuestion")
-    public ResponseEntity<QandA> registerQuestion(@RequestBody RegisterQuestionDto registerQuestionDto) {
+    public ResponseEntity<List<QandA>> registerQuestion(@RequestBody RegisterQuestionDto registerQuestionDto) {
 
        return ResponseEntity.status(HttpStatus.OK).body(mainService.registerQuestion(registerQuestionDto.getUserId(),registerQuestionDto.getFadId(),registerQuestionDto.getContent()));
 
@@ -209,6 +241,5 @@ public class MainController {
     public ResponseEntity<QandA> registerAnswer(@RequestBody RegisterAnswerDto registerAnswerDto) {
         return ResponseEntity.status(HttpStatus.OK).body(mainService.registerAnswer(registerAnswerDto.getQnaId(),registerAnswerDto.getContent()));
     }
-
 }
 

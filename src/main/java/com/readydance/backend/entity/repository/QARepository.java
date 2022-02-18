@@ -10,5 +10,7 @@ public interface QARepository extends JpaRepository<QandA, Long> {
 
     public Optional<QandA> findById(int id);
 
+
+
 }
 

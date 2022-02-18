@@ -19,10 +19,10 @@
                 <FAD_AREA> </FAD_AREA>
                 <FAD_BDANCER>아이키,노제,모니카</FAD_BDANCER>
                 <FAD_URL>www.naver.com</FAD_URL>
-                <FAD_INT></FAD_INT>
-                <FAD_INFO></FAD_INFO>
-                <FAD_PRICE></FAD_PRICE>
-                <FAD_CAU></FAD_CAU>
+                <FAD_INT>분당댄스학원 소개</FAD_INT>
+                <FAD_INFO>분당 댄스학원 시설안내</FAD_INFO>
+                <FAD_PRICE>분당 댄스학원 가격안내</FAD_PRICE>
+                <FAD_CAU>분당 댄스학원 주의사항</FAD_CAU>
             </item>
             <item>
                 <FAD_TYPE>PR</FAD_TYPE>
@@ -42,9 +42,9 @@
                 <FAD_BDANCER> </FAD_BDANCER>
                 <FAD_URL>www.daum.net</FAD_URL>
                 <FAD_INT>안녕하세요 분당 댄스연습실 입니다.</FAD_INT>
-                <FAD_INFO></FAD_INFO>
-                <FAD_PRICE></FAD_PRICE>
-                <FAD_CAU></FAD_CAU>
+                <FAD_INFO>분당 댄스 연습실 소개</FAD_INFO>
+                <FAD_PRICE>분당 댄스 연습실 가격</FAD_PRICE>
+                <FAD_CAU>분당 댄스 연습실 주의사항</FAD_CAU>
             </item>
             <item>
                 <FAD_TYPE>DA</FAD_TYPE>

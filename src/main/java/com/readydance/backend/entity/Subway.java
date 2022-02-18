@@ -22,15 +22,19 @@ public class Subway {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "SUBWAY_ID", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     private int id;
 
     @Column(name = "STATION_NAME", length = 20, nullable = false, unique = true)
-    private String stationName;    //역이름
+    private String stationName;    //역이름      city, district , dong jpa
 
     @Column(name = "X", length = 30, nullable = false)
     private String x;      //위도
 
     @Column(name = "y", length = 30, nullable = false)
     private String y;      //경도
+
+//    @ManyToOne
+//    @ToString.Exclude
+//    private Fad fad;
 }

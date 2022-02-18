@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -61,9 +62,14 @@ public class UserController {
 
     private final JavaMailSender emailSender;
 
+    ResultDto resultDto = new ResultDto();
+
+    HashMap<String, Object> map = new HashMap<String, Object>();
+
     /**
      * 1.1 회원가입 api
      * 로컬 회원가입을 한다.
+     * @return
      */
     @ApiOperation(value = "1-1 회원가입", notes = "로컬 회원가입을 한다.")
     @ApiResponses({
@@ -73,7 +79,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "회원가입에 실패하였습니다.")
     })
     @PostMapping(value = "/Join")   //Todo throws 설정
-    public ResponseEntity<User> join(
+    public ResultDto join(
             @RequestBody @Valid UserJoinDto userJoinDto
     ) throws DuplicateDataException {
 
@@ -87,13 +93,22 @@ public class UserController {
                 .usrImg(userJoinDto.getUsrImg())
                 .build();
 
-        //Todo return 값 설정
-        return ResponseEntity.status(HttpStatus.OK).body(userService.saveUser(user));
+        resultDto.setCode(HttpStatus.OK.value());
+        User registeredUser = userService.saveUser(user).get(0);
+
+        map.put("id", registeredUser.getId());
+        map.put("usrType", registeredUser.getUsrType());
+        map.put("usrEmail", registeredUser.getUsrEmail());
+
+        resultDto.setData(map);
+        resultDto.setMessage(HttpStatus.OK.toString());
+        return resultDto;
     }
 
     /**
      * 1.2 로컬 로그인 api
      * 로컬 로그인을 진행한다.
+     * @return
      */
     @ApiOperation(value = "1-2 로컬 로그인", notes = "로컬 로그인을 진행한다.")
     @ApiResponses({
@@ -105,7 +120,7 @@ public class UserController {
             @ApiResponse(code = 428, message = "비밀번호를 변경해야 합니다.", response = AuthResponseDto.class)
     })
     @PostMapping(value = "/Login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid
+    public ResultDto login(@RequestBody @Valid
                                                          LoginReq loginReq) throws SessionUnstableException {
 
         //계정 존재 여부 체크 후 객체 생성, 추후 임시 비밀번호 여부 체크 시 사용
@@ -134,7 +149,17 @@ public class UserController {
 //                expirationDate.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS); // 토큰의 유효기간이 지나면 자동 삭제
 //        log.info("redis value : " + redisTemplate.opsForValue().get(userPrincipal.getPrincipal()));
 
-        return ResponseEntity.status(HttpStatus.OK).body(new AuthResponseDto(accessToken,refreshToken));
+        resultDto.setCode(HttpStatus.OK.value());
+        map.put("usrType",user.getUsrType());
+        map.put("id",user.getId());
+        map.put("usrImg",user.getUsrImg());
+        map.put("aToken",new AuthResponseDto(accessToken,refreshToken).getAccessToken());
+        map.put("rToken",new AuthResponseDto(accessToken,refreshToken).getRefreshToken());
+        map.put("tokenType",new AuthResponseDto(accessToken,refreshToken).getTokenType());
+        resultDto.setData(map);
+        resultDto.setMessage(HttpStatus.OK.toString());
+
+        return resultDto;
     }
 
     /**

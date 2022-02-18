@@ -46,6 +46,7 @@ public class SMSController {
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 
         System.out.println(response);
+
     }
 
 

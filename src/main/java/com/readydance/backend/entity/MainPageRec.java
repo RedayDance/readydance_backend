@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MainPageRec {
 
     @Id
-    //@Column(name = "POST_NO", length = 5, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

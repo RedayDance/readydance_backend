@@ -1,5 +1,6 @@
 package com.readydance.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -12,9 +13,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -27,13 +31,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "qa")
 @EntityListeners(value = { FadEntityListener.class })
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public class QandA {
+public class QandA extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "QNA_NO", length = 5, nullable = false, unique = true)
-    private int id;      //질의응답 고유 번호
+    @Column(length = 5, nullable = false, unique = true)
+    private int id;         //질의응답 고유 번호
 
     @Column(name = "QNA_Q", length = 1000, nullable = false)
     private String qnaQ;    //질문 내용
@@ -41,10 +44,15 @@ public class QandA {
     @Column(name = "QNA_A", length = 1000)
     private String qnaA;    //답변 내용
 
+    @Column(name = "USER_NAME", length = 50)
+    private String userName;
+
+    @JsonBackReference
     @ManyToOne
     @ToString.Exclude
     private Fad fad;
 
+    @JsonBackReference
     @ManyToOne
     @ToString.Exclude
     private User user;
