@@ -14,5 +14,7 @@ public interface FadRepository extends JpaRepository<Fad, Long> {
 
        public List<Fad> findByFadNameContaining(String searchValue);
 
+       public Fad findByFadName(String fadName);
+
 
 }

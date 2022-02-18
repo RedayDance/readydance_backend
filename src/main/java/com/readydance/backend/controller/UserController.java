@@ -96,9 +96,9 @@ public class UserController {
         resultDto.setCode(HttpStatus.OK.value());
         User registeredUser = userService.saveUser(user).get(0);
 
-        map.put("ID", registeredUser.getId());
-        map.put("USR_TYPE", registeredUser.getUsrType());
-        map.put("USR_EMAIL", registeredUser.getUsrEmail());
+        map.put("id", registeredUser.getId());
+        map.put("usrType", registeredUser.getUsrType());
+        map.put("usrEmail", registeredUser.getUsrEmail());
 
         resultDto.setData(map);
         resultDto.setMessage(HttpStatus.OK.toString());
@@ -150,12 +150,12 @@ public class UserController {
 //        log.info("redis value : " + redisTemplate.opsForValue().get(userPrincipal.getPrincipal()));
 
         resultDto.setCode(HttpStatus.OK.value());
-        map.put("USR_TYPE",user.getUsrType());
-        map.put("ID",user.getId());
-        map.put("USR_IMG",user.getUsrImg());
-        map.put("A_TOKEN",new AuthResponseDto(accessToken,refreshToken).getAccessToken());
-        map.put("R_TOKEN",new AuthResponseDto(accessToken,refreshToken).getRefreshToken());
-        map.put("TOKEN_TYPE",new AuthResponseDto(accessToken,refreshToken).getTokenType());
+        map.put("usrType",user.getUsrType());
+        map.put("id",user.getId());
+        map.put("usrImg",user.getUsrImg());
+        map.put("aToken",new AuthResponseDto(accessToken,refreshToken).getAccessToken());
+        map.put("rToken",new AuthResponseDto(accessToken,refreshToken).getRefreshToken());
+        map.put("tokenType",new AuthResponseDto(accessToken,refreshToken).getTokenType());
         resultDto.setData(map);
         resultDto.setMessage(HttpStatus.OK.toString());
 

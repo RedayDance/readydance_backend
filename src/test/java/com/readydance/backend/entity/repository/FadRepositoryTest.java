@@ -29,11 +29,13 @@ class FadRepositoryTest {
         System.out.println("QandA : " + user.getQandAList());
         System.out.println("Fad : " + user.getQandAList().get(0).getFad().getFadName());
         System.out.println("Fad Q : " + fad.getQandAList().get(0).getQnaQ());
+        System.out.println("Fad Q2 : " + fad.getQandAList().get(1).getQnaQ());
 
     }
 
     private void givenFadAndQandA(){
         givenQA(givenUser(), givenFad());
+        givenQA2(givenUser(), givenFad());
     }
 
     private User givenUser() {
@@ -47,11 +49,19 @@ class FadRepositoryTest {
         qandA.setQnaA("죄송하지만 주차공간은 따로 없습니다.");
         qandA.setUser(user);
         qandA.setFad(fad);
+        qaRepository.save(qandA);
+    }
 
+    private void givenQA2 (User user, Fad fad) {
+        QandA qandA = new QandA();
+        qandA.setQnaQ("주변에 괜찮은 식당이 있을까요???");
+        qandA.setQnaA("분당 왕돈까스 맛있습니다!");
+        qandA.setUser(user);
+        qandA.setFad(fad);
         qaRepository.save(qandA);
     }
 
     private Fad givenFad() {
-        return fadRepository.findByFadName("분당댄스학원").get(0);
+        return fadRepository.findById(1).orElseThrow(() -> new SessionUnstableException("해당 시설이 존재하지 않습니다."));
     }
 }

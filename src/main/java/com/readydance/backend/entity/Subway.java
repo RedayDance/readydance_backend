@@ -26,7 +26,7 @@ public class Subway {
     private int id;
 
     @Column(name = "STATION_NAME", length = 20, nullable = false, unique = true)
-    private String stationName;    //역이름
+    private String stationName;    //역이름      city, district , dong jpa
 
     @Column(name = "X", length = 30, nullable = false)
     private String x;      //위도
