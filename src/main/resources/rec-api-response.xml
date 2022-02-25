@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+    <body>
+        <items>
+            <item>
+                <POST_NAME>분당댄스학원</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>A</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>분당댄스학원2</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>A</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>분당댄스학원3</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>A</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>분당댄스학원4</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>A</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>분당댄스학원5</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>A</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>분당댄스연습실</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>P</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION>서울특별시 강남구 논현로123길</POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>아이키</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE>K-pop</POST_JANRE>
+                <POST_TYPE>D</POST_TYPE>
+                <POST_RATE>4.3</POST_RATE>
+                <POST_LOCATION> </POST_LOCATION>
+            </item>
+            <item>
+                <POST_NAME>All I Wanna Do 따라하기 클래스</POST_NAME>
+                <POST_PICTURE>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIopx9QRQOpurShLjNNu2kaR7HzKXdIjp1NQ&amp;usqp=CAU</POST_PICTURE>
+                <POST_JANRE> </POST_JANRE>
+                <POST_TYPE>O</POST_TYPE>
+                <POST_RATE> </POST_RATE>
+                <POST_LOCATION> </POST_LOCATION>
+            </item>
+        </items>
+    </body>
+</response>

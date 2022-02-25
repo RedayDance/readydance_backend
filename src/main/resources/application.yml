@@ -1,0 +1,54 @@
+spring:
+  profiles:
+    active: local
+#  batch:
+#    job:
+#      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
+#spring:
+#  profiles:
+#    default: dev
+#  thymeleaf:
+#    cache: false
+#    prefix: file:calendar-api/src/main/resources/templates/
+  web:
+    resources:
+      cache:
+        period: 0
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'hyungjookim12@gmail.com'
+    password: 'zdmhriwdshbywafe'
+    properties:
+      mail:
+        smtp:
+          socketFactory.class: javax.net.ssl.SSLSocketFactory
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: jdbc:mysql://localhost:3316/rd_db?useSSL=false&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ''
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  redis:
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+    port: 6379
+    host: localhost
+#    password: 123456
+server:
+  port: 7009
