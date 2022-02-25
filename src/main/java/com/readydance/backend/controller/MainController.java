@@ -260,5 +260,42 @@ public class MainController {
         resultData.setData(mainService.registerAnswer(registerAnswerDto.getQnaId(),registerAnswerDto.getContent()));
         return resultData;
     }
-}
 
+    /**
+     * 2.8 즐겨찾기 추가
+     */
+    @ApiOperation(value = "2.8 즐겨찾기 추가", notes = "회원의 즐겨찾기에 목록에 추가한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 412, message = "필수항목 누락"),
+            @ApiResponse(code = 500, message = "실패")
+    })
+    @PostMapping(value = "/AddFavorite")
+    public ResultData addFavorite(@RequestBody @Valid AddFavoriteDto addFavoriteDto) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setMessage(HttpStatus.OK.toString());
+        resultData.setData(mainService.addFavorite(addFavoriteDto.getAToken(),addFavoriteDto.getFadId()));
+        return resultData;
+    }
+
+    /**
+     * 2.9 즐겨찾기 제거
+     */
+    @ApiOperation(value = "2.9 즐겨찾기 제거", notes = "회원의 즐겨찾기에 목록에 추가한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 412, message = "필수항목 누락"),
+            @ApiResponse(code = 500, message = "실패")
+    })
+    @PostMapping(value = "/DeleteFavorite")
+    public ResultData deleteFavorite(@RequestBody @Valid DeleteFavoriteDto deleteFavoriteDto) {
+
+        ResultData resultData = new ResultData();
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setMessage(HttpStatus.OK.toString());
+        resultData.setData(mainService.deleteFavorite(deleteFavoriteDto.getFavId()));
+
+        return resultData;
+    }
+}
