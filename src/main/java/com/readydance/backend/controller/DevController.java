@@ -11,15 +11,15 @@ import com.readydance.backend.entity.User;
 import com.readydance.backend.entity.repository.FadRepository;
 import com.readydance.backend.entity.repository.QARepository;
 import com.readydance.backend.entity.repository.UserRepository;
+import com.readydance.backend.jwt.JwtUtils;
 import com.readydance.backend.service.DevService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,8 +34,12 @@ public class DevController {
     private final UserRepository userRepository;
     private final QARepository qaRepository;
     private final DevService devService;
-    ResultDto resultDto = new ResultDto();
-    ResultListDto resultListDto = new ResultListDto();
+    private final ResultDto resultDto = new ResultDto();
+    private final ResultListDto resultListDto = new ResultListDto();
+
+    @Autowired
+    private JwtUtils jwtTokenProvider;
+
     /**
      * 모든 시설 데이터 반환
      */
@@ -82,5 +86,13 @@ public class DevController {
         System.out.println(userRepository.findById(1));
         System.out.println(fadRepository.findById(7));
         return userRepository.findAll();
+    }
+
+    /**
+     * access token 복호화
+     */
+    @GetMapping(value = "/GetUserName")
+    public Object getUserName(@RequestParam String token) {
+        return JwtUtils.getUsername(token);
     }
 }

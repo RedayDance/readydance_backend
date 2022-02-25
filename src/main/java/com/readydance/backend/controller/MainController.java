@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 
 @Api(tags = {"2. Get MainPage Data"})
@@ -33,7 +35,7 @@ public class MainController {
     @Autowired
     private final MainService mainService;
 
-    ResultListDto resultListDto = new ResultListDto();
+
 
     //Todo Exception 추가
 
@@ -48,6 +50,7 @@ public class MainController {
     })
     @GetMapping(value = "/GetMainInfo")
     public ResultListDto getMainData() {
+        ResultListDto resultListDto = new ResultListDto();
         resultListDto.setCode(HttpStatus.OK.value());
         resultListDto.setMessage(HttpStatus.OK.toString());
         resultListDto.setData(mainService.getMainPageAllData());
@@ -65,6 +68,7 @@ public class MainController {
     })
     @GetMapping(value = "/GetMainInfo/Academy")
     public ResultListDto getMainAcademyData() {
+        ResultListDto resultListDto = new ResultListDto();
         resultListDto.setCode(HttpStatus.OK.value());
         resultListDto.setMessage(HttpStatus.OK.toString());
         resultListDto.setData(mainService.getMainPageData("A"));
@@ -81,9 +85,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetMainInfo/PracticeRoom")
-    public ResponseEntity<List<MainPageRec>> getMainPracticeRoomData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getMainPageData("P"));
+    public ResultListDto getMainPracticeRoomData() {
+        ResultListDto resultListDto = new ResultListDto();
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getMainPageData("P"));
+        return resultListDto;
     }
 
     /**
@@ -96,9 +103,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetMainInfo/Dancer")
-    public ResponseEntity<List<MainPageRec>> getMainDancerData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getMainPageData("D"));
+    public ResultListDto getMainDancerData() {
+        ResultListDto resultListDto = new ResultListDto();
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getMainPageData("D"));
+        return resultListDto;
     }
 
     /**
@@ -111,28 +121,16 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetMainInfo/Class")
-    public ResponseEntity<List<MainPageRec>> getMainClassData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getMainPageData("O"));
+    public ResultListDto getMainClassData() {
+        ResultListDto resultListDto = new ResultListDto();
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getMainPageData("O"));
+        return resultListDto;
     }
 
     /**
-     * 2. 지하철 정보 반환
-     */
-    @ApiOperation(value = "2. 지하철 정보 반환", notes = "지하철 정보 데이터를 반환한다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 412, message = "필수항목 누락"),
-            @ApiResponse(code = 500, message = "실패")
-    })
-    @GetMapping(value = "/Subway")
-    public ResponseEntity<List<Subway>> getSubwayData() {
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getSubwayData());
-    }
-
-    /**
-     * 2.2.1 키워드 검색(메인)
+     * 2.2 키워드 검색(메인)
      */
     @ApiOperation(value = "2.2 키워드 검색", notes = "지역, 지하철역, 시설, 댄서 키워드를 통해 검색한 결과값을 반환한다.")
     @ApiResponses({
@@ -141,11 +139,14 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/SearchKeywords")
-    public ResponseEntity<List<SubwayAndFad>> searchKeywords(@RequestParam String searchValue) {
-        //SubwayAndFad a = mainService.getSearchData(searchValue);
-
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getSearchData(searchValue));
+    public ResultListDto searchKeywords(@RequestParam String searchValue) {
+        ResultListDto resultListDto = new ResultListDto();
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getSearchData(searchValue));
+        return resultListDto;
     }
+
     /**
      * 2.3 상세페이지 검색
      */
@@ -156,8 +157,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/SearchDetailed")
-    public ResponseEntity<DetailData> searchDetail(@RequestParam String searchValue) {
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getDetailData(searchValue));
+    public ResultData searchDetail(@RequestParam int fadId) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setMessage(HttpStatus.OK.toString());
+        resultData.setData(mainService.getDetailData(fadId));
+        return resultData;
     }
 
     /**
@@ -170,7 +175,7 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @PostMapping(value = "/SendAskMessage")
-    public ResponseEntity<Void> sendAskMessage(SendMessageRequestDto sendMessageRequestDto) {
+    public ResultData sendAskMessage(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto) {
 
         //문자보내기
         URI uri = UriComponentsBuilder
@@ -194,8 +199,12 @@ public class MainController {
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.exchange(requestEntity, String.class);
+        ResultData resultData = new ResultData();
+        resultData.setData(null);
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setMessage(HttpStatus.OK.toString());
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return resultData;
     }
 
     /**
@@ -208,8 +217,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @GetMapping(value = "/GetQandA")
-    public ResponseEntity<List<QandA>> getQandAData(@RequestParam int fadId) {
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.getQandAData(fadId));
+    public ResultListDto getQandAData(@RequestParam int fadId) {
+        ResultListDto resultListDto = new ResultListDto();
+        resultListDto.setCode(HttpStatus.OK.value());
+        resultListDto.setMessage(HttpStatus.OK.toString());
+        resultListDto.setData(mainService.getQandAData(fadId));
+        return resultListDto;
     }
 
     /**
@@ -222,10 +235,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @PostMapping(value = "/RegisterQuestion")
-    public ResponseEntity<List<QandA>> registerQuestion(@RequestBody RegisterQuestionDto registerQuestionDto) {
-
-       return ResponseEntity.status(HttpStatus.OK).body(mainService.registerQuestion(registerQuestionDto.getUserId(),registerQuestionDto.getFadId(),registerQuestionDto.getContent()));
-
+    public ResultData registerQuestion(@RequestBody @Valid RegisterQuestionDto registerQuestionDto) {
+        ResultData resultData = new ResultData();
+       resultData.setCode(HttpStatus.OK.value());
+       resultData.setMessage(HttpStatus.OK.toString());
+       resultData.setData(mainService.registerQuestion(registerQuestionDto.getAToken(),registerQuestionDto.getFadId(),registerQuestionDto.getContent()));
+       return resultData;
     }
 
     /**
@@ -238,8 +253,12 @@ public class MainController {
             @ApiResponse(code = 500, message = "실패")
     })
     @PostMapping(value = "/RegisterAnswer")
-    public ResponseEntity<QandA> registerAnswer(@RequestBody RegisterAnswerDto registerAnswerDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(mainService.registerAnswer(registerAnswerDto.getQnaId(),registerAnswerDto.getContent()));
+    public ResultData registerAnswer(@RequestBody RegisterAnswerDto registerAnswerDto) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setMessage(HttpStatus.OK.toString());
+        resultData.setData(mainService.registerAnswer(registerAnswerDto.getQnaId(),registerAnswerDto.getContent()));
+        return resultData;
     }
 }
 

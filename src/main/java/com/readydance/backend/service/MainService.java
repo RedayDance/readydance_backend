@@ -5,6 +5,7 @@ import com.readydance.backend.dto.SubwayAndFad;
 import com.readydance.backend.entity.*;
 import com.readydance.backend.entity.repository.*;
 import com.readydance.backend.exception.SessionUnstableException;
+import com.readydance.backend.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -87,13 +88,12 @@ public class MainService {
     }
 
     /**
-     *
-     * @return 전체 질문 내용 반환
+     * 상세 페이지 내용 반환
      */
     @Transactional
-    public DetailData getDetailData(String searchValue) {
+    public DetailData getDetailData(int fadId) {
 
-        Fad fad = fadRepository.findByFadName(searchValue);
+        Fad fad = fadRepository.findById(fadId).orElseThrow(() -> new SessionUnstableException("해당 시설 정보가 없습니다."));
 
         DetailData data = new DetailData(fad.getFadUrl(),fad.getFadInt(),fad.getFadInfo(),fad.getFadPrice(),fad.getFadCau(),fad.getFadX(),fad.getFadY());
 
@@ -115,17 +115,18 @@ public class MainService {
      * @return
      */
     @Transactional
-    public List<QandA> registerQuestion(int userId, int fadId, String content) {
-        givenFadAndQandA(userId, fadId, content);
+    public List<QandA> registerQuestion(String aToken, int fadId, String content) {
+        givenFadAndQandA(aToken, fadId, content);
         return qaRepository.findAll();
     }
 
-    private QandA givenFadAndQandA(int userId, int fadId, String content){
-       return givenReview(givenUser(userId), givenFad(fadId), content);
+    private QandA givenFadAndQandA(String aToken, int fadId, String content){
+       return givenReview(givenUser(aToken), givenFad(fadId), content);
     }
 
-    private User givenUser(int userId) {
-        return userRepository.findById(userId)
+    private User givenUser(String aToken) {
+        String userEmail = JwtUtils.getUsername(aToken);
+        return userRepository.findByUsrEmail(userEmail)
                 .orElseThrow(() -> new SessionUnstableException("해당 유저가 존제하지 않습니다."));
     }
 

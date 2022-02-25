@@ -57,7 +57,7 @@ public class JwtUtils {
      * @return jwt token
      */
     public static String createToken(UserPrincipal user) {
-        Claims claims = Jwts.claims().setSubject(Long.toString(user.getNo())); // subject
+        Claims claims = Jwts.claims().setSubject(user.getUserEmail()); // subject
         Date now = new Date(); // 현재 시간
         Pair<String, Key> key = JwtKey.getRandomKey();
         // JWT Token 생성
