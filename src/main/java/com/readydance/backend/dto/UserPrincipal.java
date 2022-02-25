@@ -25,12 +25,14 @@ public class UserPrincipal implements  UserDetails {
     private int no;
     private String principal;   //유저 아이디
     private String password;    //유저 패스워드
+    private String userEmail;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(int no, String password, Collection<? extends GrantedAuthority>  authorities, String principal ) {
+    public UserPrincipal(int no, String password,String userEmail, Collection<? extends GrantedAuthority>  authorities, String principal ) {
         this.no = no;
         this.password = password;
+        this.userEmail = userEmail;
         this.authorities = authorities;
         this.principal = principal;
     }
@@ -42,6 +44,7 @@ public class UserPrincipal implements  UserDetails {
         return new UserPrincipal(
                 user.getId(),
                 user.getUsrPass(),
+                user.getUsrEmail(),
                 authorities,
                 user.getUsrId()
         );

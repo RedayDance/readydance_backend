@@ -49,10 +49,16 @@ public class User {
     private String usrImg;   //유저 프로필 이미지
 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") //중간 테이블을 만들지 않기 위함
     @ToString.Exclude  //stack overflow 제거
     private List<QandA> qandAList = new ArrayList<>(); //Q&A 정보
+
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private List<Favorite> favoriteList = new ArrayList<>(); //즐겨찾기 정보
 
 
 //    @Enumerated(EnumType.STRING)

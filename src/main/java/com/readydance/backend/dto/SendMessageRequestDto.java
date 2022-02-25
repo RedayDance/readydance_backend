@@ -24,8 +24,8 @@ public class SendMessageRequestDto {
     private String content; // 문자 내용
 
 
-    @ConstructorProperties({"phoneNo","receiptNumber", "content"})
-    public SendMessageRequestDto(String phoneNo, String receiptNumber, String content) {
+    @ConstructorProperties({"sendingNumber","receiptNumber", "content"})
+    public SendMessageRequestDto(String sendingNumber, String receiptNumber, String content) {
         this.sendingNumber = sendingNumber;
         this.receiptNumber = receiptNumber;
         this.content = content;

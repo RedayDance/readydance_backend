@@ -62,10 +62,6 @@ public class UserController {
 
     private final JavaMailSender emailSender;
 
-    ResultDto resultDto = new ResultDto();
-
-    HashMap<String, Object> map = new HashMap<String, Object>();
-
     /**
      * 1.1 회원가입 api
      * 로컬 회원가입을 한다.
@@ -93,9 +89,10 @@ public class UserController {
                 .usrImg(userJoinDto.getUsrImg())
                 .build();
 
+        ResultDto resultDto = new ResultDto();
         resultDto.setCode(HttpStatus.OK.value());
         User registeredUser = userService.saveUser(user).get(0);
-
+        HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id", registeredUser.getId());
         map.put("usrType", registeredUser.getUsrType());
         map.put("usrEmail", registeredUser.getUsrEmail());
@@ -148,7 +145,8 @@ public class UserController {
 //                userPrincipal.getPrincipal(), refreshToken,
 //                expirationDate.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS); // 토큰의 유효기간이 지나면 자동 삭제
 //        log.info("redis value : " + redisTemplate.opsForValue().get(userPrincipal.getPrincipal()));
-
+        ResultDto resultDto = new ResultDto();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         resultDto.setCode(HttpStatus.OK.value());
         map.put("usrType",user.getUsrType());
         map.put("id",user.getId());
@@ -172,10 +170,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "메세지 전송 실패")
     })
     @PostMapping(value = "/SendNumber")
-    public ResponseEntity<Integer> validPhoneForSignUp(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto)
+    public ResultDto validPhoneForSignUp(@RequestBody @Valid SendMessageRequestDto sendMessageRequestDto)
             throws SMSException, DuplicateDataException {
 
-        userService.checkDuplicateTel(sendMessageRequestDto.getSendingNumber());
+        //userService.checkDuplicateTel(sendMessageRequestDto.getSendingNumber());
         int validNum = userService.validatePhone(sendMessageRequestDto.getSendingNumber());
         sendMessageRequestDto.setContent(Integer.toString(validNum));
 
@@ -204,8 +202,13 @@ public class UserController {
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.exchange(requestEntity, String.class);
-
-        return ResponseEntity.status(HttpStatus.OK).body(validNum);
+        ResultDto resultDto = new ResultDto();
+        resultDto.setMessage(HttpStatus.OK.toString());
+        resultDto.setCode(HttpStatus.OK.value());
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("authNum",validNum);
+        resultDto.setData(map);
+        return resultDto;
     }
 
     /**
@@ -260,7 +263,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "이메일 전송 실패")
     })
     @PostMapping(value = "/SendEmail")
-    public ResponseEntity<Void> sendEmail (@RequestBody @Valid SendEmailRequestDto sendEmailRequestDto)
+    public ResultData sendEmail (@RequestBody @Valid SendEmailRequestDto sendEmailRequestDto)
            {
 
         //@FunctionalInterface -> interface에 메소드가 하나 -> 람다식으로 구현 가능
@@ -272,7 +275,10 @@ public class UserController {
         };
 
         emailSender.send(preparator);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+        ResultData resultData = new ResultData();
+        resultData.setMessage(HttpStatus.OK.toString());
+        resultData.setCode(HttpStatus.OK.value());
+        resultData.setData(null);
+        return resultData;
     }
 }

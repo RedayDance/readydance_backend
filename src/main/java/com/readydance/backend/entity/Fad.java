@@ -40,6 +40,9 @@ public class Fad {
     @ToString.Exclude
     private List<QandA> qandAList = new ArrayList<>();
 
+    @XmlElement(name="FAD_TYPE")
+    private String fadType;
+
     @XmlElement(name="FAD_IMG")
     private String fadImg;
 
