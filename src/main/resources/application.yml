@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   profiles:
     active: local
 #  batch:
@@ -49,6 +52,5 @@ spring:
         min-idle: 2
     port: 6379
     host: localhost
-#    password: 123456
 server:
   port: 7009

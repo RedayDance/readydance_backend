@@ -10,9 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 public class PasswordEncoderConfig {
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public String encode() {
+        String password = "password";
+
+        return passwordEncoder.encode(password);
     }
 }

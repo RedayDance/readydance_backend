@@ -1,26 +1,67 @@
-version: '3'
+version: "3.7"
+
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx'
+    image: tobby/nginx:0.1
+    ports:
+      - "80:80"
+    container_name: nginx-for-rd-server
+    network_mode: "host"
   redis:
-    image: redis:6.0.5
-    command: redis-server --requirepass changeme --port 6379
-    container_name: redis6379
-    hostname: redis6379
-    labels:
-      - "name=redis"
-      - "mode=standalone"
+    build:
+      context: .
+      dockerfile: Dockerfile_redis
+    image: tobby/redis:0.1
     ports:
-      - 6379:6379
-  mysql:
-    container_name: rd_db
-    image: mysql/mysql-server:5.7
-    environment:
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: "rd_db"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      TZ: 'Asia/Seoul'
+      - "6379:6379"
+    container_name: redis-for-rd-server
+    networks:
+      redis-net:
+        ipv4_address: 172.18.0.2
+  rd-app-blue-A: # 서비스명
+    build:
+      context: .
+      dockerfile: Dockerfile_rd
+    image: tobby/rd-app:0.1 # 이미지, 태그
     ports:
-      - "3316:3306"
-    command:
-      - "mysqld"
-      - "--character-set-server=utf8mb4"
-      - "--collation-server=utf8mb4_unicode_ci"
+      - "8081:8080"
+    container_name: rd-app-blue-A
+    networks:
+      - redis-net
+  rd-app-blue-B: # 서비스명
+    build:
+      context: .
+      dockerfile: Dockerfile_rd
+    image: tobby/rd-app:0.1 # 이미지, 태그
+    ports:
+      - "8083:8080"
+    container_name: rd-app-blue-B
+    networks:
+      - redis-net
+  rd-app-green-A: # 서비스명
+    build:
+      context: .
+      dockerfile: Dockerfile_rd
+    image: tobby/rd-app:0.1 # 이미지, 태그
+    ports:
+      - "8082:8080"
+    container_name: rd-app-green-A
+    networks:
+      - redis-net
+  rd-app-green-B: # 서비스명
+    build:
+      context: .
+      dockerfile: Dockerfile_rd
+    image: tobby/rd-app:0.1 # 이미지, 태그
+    ports:
+      - "8084:8080"
+    container_name: rd-app-green-B
+    networks:
+      - redis-net
+networks:
+  redis-net:
+    external:
+      name: redis-net

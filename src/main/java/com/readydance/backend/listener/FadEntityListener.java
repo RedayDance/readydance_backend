@@ -15,7 +15,6 @@ public class FadEntityListener {
     @PostPersist
     @PostUpdate
     public void prePersistAndPreUpdate(Object o) {
-
         FadRepository fadRepository = BeanUtils.getBean(FadRepository.class);
 
         QandA qandA = (QandA) o;
@@ -25,6 +24,5 @@ public class FadEntityListener {
         qandAList.add(qandA);
         fad.setQandAList(qandAList);
         fadRepository.save(fad);
-
     }
 }

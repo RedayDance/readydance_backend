@@ -141,10 +141,10 @@ public class UserController {
 
         /* refresh 토큰을 redis에 저장 */
         Date expirationDate = jwtTokenProvider.getExpirationDate(refreshToken, JwtUtils.TokenType.REFRESH_TOKEN);
-//        redisTemplate.opsForValue().set(
-//                userPrincipal.getPrincipal(), refreshToken,
-//                expirationDate.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS); // 토큰의 유효기간이 지나면 자동 삭제
-//        log.info("redis value : " + redisTemplate.opsForValue().get(userPrincipal.getPrincipal()));
+        redisTemplate.opsForValue().set(
+                userPrincipal.getPrincipal(), refreshToken,
+                expirationDate.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS); // 토큰의 유효기간이 지나면 자동 삭제
+        log.info("redis value : " + redisTemplate.opsForValue().get(userPrincipal.getPrincipal()));
         ResultDto resultDto = new ResultDto();
         HashMap<String, Object> map = new HashMap<String, Object>();
         resultDto.setCode(HttpStatus.OK.value());
